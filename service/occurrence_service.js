@@ -21,6 +21,13 @@ class OccurrenceService {
         });
     }
 
+    static unapprove(occurrenceId, callback) {
+        OccurrenceService.show(occurrenceId, (err, occurrence) => {
+            occurrence.approved = false;
+            occurrence.save(callback);
+        });
+    }
+
     static remove(occurrenceId, callback) {
         Occurrence.deleteOne({ _id: occurrenceId }, callback);
     }

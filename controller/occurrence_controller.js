@@ -43,6 +43,16 @@ app.post('/approve/:id', (req, res) => {
     });
 });
 
+app.use('/unapprove/:id', ValidateAdmin);
+app.post('/unapprove/:id', (req, res) => {
+    let occurrenceId = req.params.id;
+    OccurrenceService.unapprove(occurrenceId, (err, occurrence) => {
+        if (err) return res.json({success: false, error: err});
+
+        res.json({success: true, occurrence: occurrence})
+    });
+});
+
 
 app.get('/list-approveds', (req, res) => {
     OccurrenceService.list(true,(err, occurrences) => {
